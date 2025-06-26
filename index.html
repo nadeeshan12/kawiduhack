@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Hack Tool V23</title>
+    <style>
+        :root {
+            --whatsapp-green: #075e54;
+            --whatsapp-light-green: #128c7e;
+            --whatsapp-teal: #25d366;
+            --dark-bg: #121212;
+            --darker-bg: #1e1e1e;
+            --text-color: #e1e1e1;
+            --border-color: #333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+        
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 15px;
+            position: relative;
+        }
+        
+        header {
+            background-color: var(--whatsapp-green);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-section {
+            background-color: var(--darker-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 10px;
+            border: 3px solid var(--whatsapp-teal);
+            display: block;
+            animation: pulse 2s infinite;
+        }
+        
+        .profile-name {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            color: white;
+            text-shadow: 0 0 5px var(--whatsapp-teal);
+        }
+        
+        .profile-about {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .section {
+            background-color: var(--darker-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-title {
+            color: var(--whatsapp-teal);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .input-group i {
+            margin-right: 10px;
+            color: var(--whatsapp-teal);
+            width: 20px;
+            text-align: center;
+            animation: blink 1.5s infinite;
+        }
+        
+        .input-label {
+            flex: 1;
+            color: #ccc;
+        }
+        
+        .status-container {
+            margin-top: 15px;
+        }
+        
+        .status-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+            border: 1px solid var(--whatsapp-teal);
+            animation: scanline 5s linear infinite;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #777;
+            font-size: 0.8rem;
+            margin-top: 20px;
+        }
+        
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--whatsapp-green);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            color: white;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+        
+        .progress-bar {
+            width: 80%;
+            height: 4px;
+            background-color: rgba(255,255,255,0.2);
+            margin-top: 20px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0%;
+            background-color: white;
+            animation: progress 3s linear forwards;
+        }
+        
+        .code-rain {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+        
+        .matrix-digit {
+            position: absolute;
+            color: var(--whatsapp-teal);
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            animation: fall linear infinite;
+        }
+        
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(0, 255, 0, 0.05) 0.5%,
+                transparent 1%
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .glow-effect {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at center, rgba(37, 211, 102, 0.1) 0%, transparent 70%);
+            animation: glowPulse 4s infinite alternate;
+            pointer-events: none;
+        }
+        
+        .terminal-text {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            color: var(--whatsapp-teal);
+            border-left: 3px solid var(--whatsapp-teal);
+            overflow: hidden;
+        }
+        
+        .typing {
+            border-right: 2px solid var(--whatsapp-teal);
+            animation: blinkCursor 0.7s steps(1) infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes progress {
+            to { width: 100%; }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        @keyframes scanline {
+            0% { box-shadow: 0 0 5px var(--whatsapp-teal); }
+            50% { box-shadow: 0 0 20px var(--whatsapp-teal); }
+            100% { box-shadow: 0 0 5px var(--whatsapp-teal); }
+        }
+        
+        @keyframes fall {
+            to { transform: translateY(100vh); }
+        }
+        
+        @keyframes glowPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+        
+        @keyframes blinkCursor {
+            50% { border-right-color: transparent; }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="loading-spinner"></div>
+        <h2>INITIALIZING WHATSAPP HACK TOOL V23...</h2>
+        <div class="terminal-text">
+            <div>> Checking system requirements...</div>
+            <div>> Bypassing security protocols...</div>
+            <div>> Establishing connection to WhatsApp servers...</div>
+            <div class="typing">> Decrypting target data...</div>
+        </div>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    
+    <div class="container" style="display: none;">
+        <div class="glow-effect"></div>
+        <div class="scanlines"></div>
+        <div class="code-rain" id="codeRain"></div>
+        
+        <header>
+            <h1><i class="fas fa-lock-open"></i> WhatsApp Hack Tool V23</h1>
+        </header>
+        
+        <div class="profile-section">
+            <img src="user.PNG" alt="Profile" class="profile-pic">
+            <h2 class="profile-name">....Ushadhi...</h2>
+            <p class="profile-about">❤️🥹No name❤️🥹</p>
+        </div>
+        
+        <div class="section">
+            <h3 class="section-title"><i class="fas fa-user-secret"></i> User Details</h3>
+            
+            <div class="input-group">
+                <i class="fas fa-phone"></i>
+                <span class="input-label">+94 77 823 5620</span>
+                <span style="color: var(--whatsapp-teal); margin-left: auto;">DECRYPTED</span>
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-map-marker-alt"></i>
+                <span class="input-label">Kampane, Sri Lanka</span>
+                <span style="color: var(--whatsapp-teal); margin-left: auto;">DECRYPTED</span>
+            </div>
+            
+            <div class="terminal-text">
+                <div>> Phone number verification: <span style="color: lime;">SUCCESS</span></div>
+                <div>> Location triangulation: <span style="color: lime;">COMPLETE</span></div>
+                <div class="typing">> Establishing persistent connection...</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3 class="section-title"><i class="fas fa-terminal"></i> Data Extraction</h3>
+            
+            <div class="input-group">
+                <i class="fas fa-comments"></i>
+                <span class="input-label">Chats</span>
+                <span style="color: var(--whatsapp-teal); margin-left: auto;">87%</span>
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-phone-alt"></i>
+                <span class="input-label">Calls</span>
+                <span style="color: var(--whatsapp-teal); margin-left: auto;">92%</span>
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-history"></i>
+                <span class="input-label">Status History</span>
+                <span style="color: var(--whatsapp-teal); margin-left: auto;">64%</span>
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-ban"></i>
+                <span class="input-label">Block List</span>
+                <span style="color: var(--whatsapp-teal); margin-left: auto;">100%</span>
+            </div>
+            
+            <div class="terminal-text">
+                <div>> Chat database decrypted: <span style="color: lime;">87%</span></div>
+                <div>> Call logs extracted: <span style="color: lime;">92%</span></div>
+                <div>> Media files downloading: <span style="color: orange;">64%</span></div>
+                <div class="typing">> Compressing data for export...</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3 class="section-title"><i class="fas fa-eye"></i> Status History Preview</h3>
+            <div class="status-container">
+                <img src="status.jpeg" alt="Status" class="status-image">
+            </div>
+            <div class="terminal-text">
+                <div>> Last status update: 2 hours ago</div>
+                <div>> Views: 24 contacts</div>
+                <div class="typing">> Capturing screenshot history...</div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 WhatsApp Hack Tool V23 | All Rights Reserved</p>
+            <p style="color: red;">WARNING: Develperd by Nadeshan sulakshana </p>
+        </footer>
+    </div>
+    
+    <script>
+        // Create matrix rain effect
+        function createMatrixRain() {
+            const container = document.getElementById('codeRain');
+            const chars = "01";
+            const fontSize = 14;
+            const columns = Math.floor(window.innerWidth / fontSize);
+            
+            for (let i = 0; i < columns; i++) {
+                const delay = Math.random() * 5;
+                const duration = 5 + Math.random() * 10;
+                const digit = document.createElement('div');
+                digit.className = 'matrix-digit';
+                digit.style.left = `${i * fontSize}px`;
+                digit.style.animationDelay = `${delay}s`;
+                digit.style.animationDuration = `${duration}s`;
+                digit.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
+                container.appendChild(digit);
+                
+                // Create more digits for each column
+                const digitCount = 5 + Math.floor(Math.random() * 10);
+                for (let j = 1; j < digitCount; j++) {
+                    setTimeout(() => {
+                        const nextDigit = document.createElement('div');
+                        nextDigit.className = 'matrix-digit';
+                        nextDigit.style.left = `${i * fontSize}px`;
+                        nextDigit.style.animationDelay = `${delay + (j * 0.2)}s`;
+                        nextDigit.style.animationDuration = `${duration}s`;
+                        nextDigit.textContent = chars.charAt(Math.floor(Math.random() * chars.length));
+                        container.appendChild(nextDigit);
+                    }, j * 200);
+                }
+            }
+        }
+        
+        // Simulate terminal typing
+        function simulateTyping() {
+            const elements = document.querySelectorAll('.typing');
+            elements.forEach(el => {
+                const text = el.textContent;
+                el.textContent = '';
+                let i = 0;
+                const typing = setInterval(() => {
+                    if (i < text.length) {
+                        el.textContent += text.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typing);
+                    }
+                }, 50);
+            });
+        }
+        
+        // Randomly blink some elements
+        function randomBlink() {
+            setInterval(() => {
+                const elements = document.querySelectorAll('.input-group i');
+                const randomIndex = Math.floor(Math.random() * elements.length);
+                elements[randomIndex].style.animation = 'none';
+                void elements[randomIndex].offsetWidth; // Trigger reflow
+                elements[randomIndex].style.animation = 'blink 1.5s infinite';
+            }, 1000);
+        }
+        
+        // Update progress percentages randomly
+        function updateProgress() {
+            setInterval(() => {
+                const progresses = document.querySelectorAll('.input-group span:nth-child(3)');
+                progresses.forEach(progress => {
+                    if (Math.random() > 0.7) {
+                        const current = parseInt(progress.textContent);
+                        const newValue = Math.min(100, current + Math.floor(Math.random() * 5));
+                        progress.textContent = newValue + '%';
+                    }
+                });
+            }, 1500);
+        }
+        
+        // Initialize everything when page loads
+        window.onload = function() {
+            createMatrixRain();
+            
+            // Show loading screen for 5 seconds then show content
+            setTimeout(function() {
+                document.querySelector('.loading-screen').style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+                simulateTyping();
+                randomBlink();
+                updateProgress();
+                
+                // Continue "hacking" animation
+                setInterval(simulateTyping, 8000);
+            }, 5000);
+        };
+    </script>
+</body>
+</html>
